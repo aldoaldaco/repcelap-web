@@ -86,44 +86,104 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --app-zero-color: black;
         --app-primary-color: #181818;
         --app-secondary-color: #FEFEFe;
-        --app-terciary-color: #D6DBDF;
+        /*--app-terciary-color: rgb(185, 255, 190);*/
+        --app-terciary-color: rgb(223, 215, 215);
         --app-forth-color: #E91E40;
-        --app-fifth-color: #932FAB;
+        --app-fifth-color: #683192;
         --app-sixth-color: #0C2DDA;
-        --app-seventh-color: #FDDC05;
+        /*--app-seventh-color: #FDDC05;*/
         --app-eight-color: #FDDC05;
         --app-ninth-color: #01F5F7;
-        --app-tenth-color: #8BC34A;
+        --app-tenth-color: #69bf00;
       }
     
       @font-face {
         font-family: 'Repcelap';
         src: url('../../fonts/repcefont/repcefont.otf'); /* Safari, Android, iOS */  
       }
-      @font-face {
-        font-family: 'Pacifico';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/Q_Z9mv4hySLTMoMjnk_rCXYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
-        /* The browser draws the text immediately in the fallback font if the font
-           isn't loaded, then swaps it with the webfont when it eventually loads
-           See: https://developers.google.com/web/updates/2016/02/font-display
-        */
-        font-display: swap;
-      }
       body {
         margin: 0;
         /* This is a font-stack that tries to use the system-default sans-serifs first */
-        font-family: Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-family: Repcelap,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
         line-height: 1.5;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
         background-color: black;
       }
+      #splash {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        background: black;
+      }
+      #loader {
+        margin: 0;
+        padding: 0;
+        width: 90%;
+        height: 2px;
+        background: lightgrey;
+      }
+      #line {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #683192;
+        /*animation: fill 2s linear;*/
+      }
+      #result {
+        display: inline;
+        vertical-align: center;
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: white;
+      }
     </style>
   </head>
   <body>
-    <my-app appTitle="Repcelap"></my-app>
+    <my-app appTitle="Repcelap"></my-app>  
+    <section id="splash">
+        <div id="result"></div>
+        <div id="loader">
+          <div id="line"></div>
+        </div>
+      </section>
+    <script src="./node_modules/animejs/lib/anime.min.js"></script>
+    <script>
+      const animation = anime({
+        targets: '#line',
+        keyframes: [
+          {width: '10%'},
+          {width: '20%'},
+          {width: '30%'},
+          {width: '40%'},
+          {width: '50%'},
+          {width: '60%'},
+          {width: '70%'},
+          {width: '80%'},
+          {width: '90%'},
+          {width: '100%'}
+        ],
+        duration: 2000,
+        easing: 'linear',
+        loop: false,
+        begin: anim => {
+          document.querySelector('my-app').style.display = 'none';
+        },
+        update: anim => {
+          document.querySelector('#result').innerText = Math.round(anim.progress)+'%';
+        },
+        complete: anim => {
+          document.querySelector('#splash').style.display = 'none';
+          document.querySelector('my-app').style.display = 'block';
+        }
+      });
+    </script>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>

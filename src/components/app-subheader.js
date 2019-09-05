@@ -40,13 +40,14 @@ class AppSubheader extends LitElement {
             }
             button:hover {
                 cursor: pointer;
-                transition-property: border-bottom-color;
-                transition-duration: 0.5s;
-                transition-timing-function: ease-in-out;
-                border-bottom-color: var(--app-fifth-color);
+                transition-property: color, border-bottom-color;
+                transition-duration: 0.4s;
+                transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+                color: var(--app-forth-color);
+                border-bottom-color: var(--app-forth-color);
             }
             button[active] {
-                border-bottom: 1px solid var(--app-fifth-color);   
+                border-bottom: 1px solid var(--app-forth-color);   
             }
             button:visited, button:focus {
                 outline: none;
@@ -59,7 +60,7 @@ class AppSubheader extends LitElement {
     constructor() {
         super();
         this.fixed = false;
-        this.items = ['item','item','item','item','item'];
+        this.items = ['Productos','Servicios','Promociones','Nosotros','Términos y Políticas'];
         this.moreProductsTextButton = 'Más productos';
     }
     connectedCallback() {

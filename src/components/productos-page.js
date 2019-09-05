@@ -4,7 +4,7 @@ import { PageViewElement } from './page-view-element.js';
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 // These are the elements needed by this element.
-import { addToCartIcon } from './my-icons.js';
+import { addToCartIcon, newProduct } from './my-icons.js';
 
 class ProductosPage extends PageViewElement {
   static get styles() {
@@ -32,14 +32,15 @@ class ProductosPage extends PageViewElement {
       width: 280px;
       height: 410px;
       margin: 0.5rem;
+      font-family: sans-serif;
       border-radius: 3px;
-      background-color: var(--app-secondary-color);
+      background-color: var(--app-terciary-color);
       box-shadow: 0 0 3px 0 rgba(255,255,255, 0.6);
       z-index: 0;
     }
     .producto:hover {
       cursor: pointer;
-      box-shadow: 0 0 5px 2px rgba(255,255,255, 0.6);
+      box-shadow: 0 0 10px 5px rgba(105,191,0, 0.6);
     }
     .producto-image {
       width: 100%;
@@ -59,26 +60,31 @@ class ProductosPage extends PageViewElement {
       text-align: center;
       color: var(--app-secondary-color);
       display: flex;
+      font-weight: lighter;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
     .producto-description h2 {
       width: 95%;
+      margin: 0;
       color: var(--app-forth-color);
       text-align: center;
-      font-size: 1.2rem;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
     }
     .producto-description p {
       width: 80%;
       color: var(--app-primary-color);
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
     .producto-add-cart-button {
       position: absolute;
-      bottom: 10px;
+      bottom: 5px;
       right: 5px;
+      width: 64px;
+      height: 64px;
       background-color: transparent;
       border: none;
       z-index: 0;
@@ -101,14 +107,25 @@ class ProductosPage extends PageViewElement {
       background-color: var(--app-sixth-color);
       color: var(--app-secondary-color);
       font-weight: bold;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       font-size: 1rem;
+      text-transform: uppercase;
     }
     .productos-more:hover { 
       cursor: pointer;
+      color: var(--app-eight-color);
     }
     .productos-more:focus {
       outline: none;
+    }
+    .new,
+    .new svg {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      fill: var(--app-primary-color);
+      width: 34px;
+      height: 34px;
     }
     `;
   }
@@ -132,8 +149,9 @@ class ProductosPage extends PageViewElement {
         ${this.productos.map(item => {
           return html`
             <article class="producto">
+              <div class="new">${newProduct}</div>
               <figure class="producto-image">
-                <img src="https://imperiums.com.br/wp-content/uploads/2016/11/newshark.png" width="200" height="200"/>
+                <img src="https://imperiums.com.br/wp-content/uploads/2016/11/newshark.png" width="180" height="180"/>
               </figure>
               <div class="producto-description">
                 <h2>Nombre de Producto</h2>    

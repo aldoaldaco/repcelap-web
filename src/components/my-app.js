@@ -35,6 +35,7 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import { menuIcon } from './my-icons.js';
 import './snack-bar.js';
 import './app-subheader.js';
+import './app-subheader.js';
 
 class MyApp extends connect(store)(LitElement) {
   static get properties() {
@@ -144,9 +145,12 @@ class MyApp extends connect(store)(LitElement) {
         }
         footer {
           padding: 24px;
-          background: var(--app-drawer-background-color);
-          color: var(--app-drawer-text-color);
+          color: var(--app-secondary-color);
+          letter-spacing: 2px;
           text-align: center;
+        }
+        footer p span {
+          color: var(--app-forth-color);
         }
 
         /* Wide layout */
@@ -171,33 +175,31 @@ class MyApp extends connect(store)(LitElement) {
   render() {
     // Anything that's related to rendering should be done in here.
     return html`
+      
       <!-- Header -->
       <app-header fixed reveals effects="waterfall">
         <app-toolbar class="toolbar-top">
           <button class="menu-btn" title="Menu" @click="${this._menuButtonClicked}">${menuIcon}</button>
-          <div style="font-family: Repcelap;margin: 2rem 0;" main-title>${this.appTitle}</div>
+          <div style="font-family: Repcelap;margin: 2rem 0;text-shadow: 0 0 5px var(--app-secondary-color)" main-title>${this.appTitle}</div>
         </app-toolbar>
       </app-header>
       <app-subheader fixed>
-        <nav class="drawer-list">
-          <a ?selected="${this._page === 'productos-page'}" href="/productos-page">View One</a>
-          <a ?selected="${this._page === 'view2'}" href="/view2">View Two</a>
-          <a ?selected="${this._page === 'view3'}" href="/view3">View Three</a>
-        </nav>
       </app-subheader>
 
       <!-- Drawer content -->
 
+      
       <!-- Main content -->
       <main role="main" class="main-content">
         <productos-page class="page" ?active="${this._page === 'productos-page'}"></productos-page>
+        <categorias-page class="page" ?active="${this._page === 'categorias-page'}"></categorias-page>
         <my-view2 class="page" ?active="${this._page === 'view2'}"></my-view2>
         <my-view3 class="page" ?active="${this._page === 'view3'}"></my-view3>
         <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
       </main>
 
       <footer>
-        <p>Made with &hearts; by the Repcelap team. &copy; 2019</p>
+        <p>Made with <span>&hearts;</span> by the <span>Repcelap</span> team. &copy; 2019</p>
       </footer>
 
       <snack-bar ?active="${this._snackbarOpened}">
@@ -216,8 +218,7 @@ class MyApp extends connect(store)(LitElement) {
   firstUpdated() {
     installRouter((location) => store.dispatch(navigate(decodeURIComponent(location.pathname))));
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
-    installMediaQueryWatcher(`(min-width: 768px)`,
-        (matches) => store.dispatch(updateLayout(matches)));
+    installMediaQueryWatcher(`(min-width: 768px)`, (matches) => store.dispatch(updateLayout(matches)));
   }
 
   updated(changedProps) {
